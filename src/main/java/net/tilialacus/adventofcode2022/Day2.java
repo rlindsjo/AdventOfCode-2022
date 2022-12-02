@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class Day2 {
     public static void main(String[] args) throws Exception {
-        int score = RockPaperScissors.playAll("day2/rock_paper_scissors.txt");
-        System.out.println("Score playing is %s".formatted(score));
+        System.out.println("Score playing is %s".formatted(RockPaperScissors.playAll("day2/rock_paper_scissors.txt")));
+        System.out.println("Score playing is %s".formatted(RockPaperScissors.playAllOptimal("day2/rock_paper_scissors.txt")));
     }
 }

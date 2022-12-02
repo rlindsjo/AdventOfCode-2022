@@ -19,6 +19,15 @@ class RockPaperScissorsTest {
     }
 
     @Test
+    void singleOptimal() {
+        assertAll(
+                () -> assertEquals(4, playOptimal("A", "Y")),
+                () -> assertEquals(1, playOptimal("B", "X")),
+                () -> assertEquals(7, playOptimal("C", "Z"))
+        );
+    }
+
+    @Test
     void file() throws Exception {
         assertEquals(15, playAll("rock_paper_scissors_test.txt"));
     }

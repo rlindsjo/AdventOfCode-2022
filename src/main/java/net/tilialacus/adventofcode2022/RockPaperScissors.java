@@ -20,11 +20,40 @@ public class RockPaperScissors {
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
             String[] shapes = line.split(" ");
             score += play(shapes[0], shapes[1]);
-            System.err.println("%s %s".formatted(++lines, score) );
         }
         return score;
     }
 
+    public static int playAllOptimal(String resource) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
+        int lines = 0;
+        int score = 0;
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            String[] shapes = line.split(" ");
+            score += playOptimal(shapes[0], shapes[1]);
+        }
+        return score;
+    }
+
+    public static int playOptimal(String opponent, String outcome) {
+        return play(opponent, optimalMove(opponent, outcome));
+    }
+
+    private static String optimalMove(String opponent, String outcome) {
+        var you = switch (opponent + outcome) {
+            case "AX" -> "C";
+            case "BX" -> "A";
+            case "CX" -> "B";
+            case "AY" -> "A";
+            case "BY" -> "B";
+            case "CY" -> "C";
+            case "AZ" -> "B";
+            case "BZ" -> "C";
+            case "CZ" -> "A";
+            default -> throw new IllegalArgumentException(opponent + " " + outcome);
+        };
+        return you;
+    }
 
     private static int matchScore(String opponent, String you) {
         int rankOpponent = rank(opponent);
@@ -49,9 +78,9 @@ public class RockPaperScissors {
 
     private static int shapeScore(String shape) {
         return switch (shape) {
-            case "X" -> 1;
-            case "Y" -> 2;
-            case "Z" -> 3;
+            case "X", "A" -> 1;
+            case "Y", "B" -> 2;
+            case "Z", "C" -> 3;
             default -> throw new IllegalArgumentException(shape);
         };
     }
