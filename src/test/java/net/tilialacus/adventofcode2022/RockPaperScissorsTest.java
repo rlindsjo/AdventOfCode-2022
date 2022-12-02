@@ -2,8 +2,11 @@ package net.tilialacus.adventofcode2022;
 
 import org.junit.jupiter.api.Test;
 
-import static net.tilialacus.adventofcode2022.RockPaperScissors.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static net.tilialacus.adventofcode2022.RockPaperScissors.play;
+import static net.tilialacus.adventofcode2022.RockPaperScissors.playAll;
+import static net.tilialacus.adventofcode2022.RockPaperScissors.playOptimal;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RockPaperScissorsTest {
     @Test
@@ -29,6 +32,6 @@ class RockPaperScissorsTest {
 
     @Test
     void file() throws Exception {
-        assertEquals(15, playAll("rock_paper_scissors_test.txt"));
+        assertEquals(15, playAll("rock_paper_scissors_test.txt", RockPaperScissors::play));
     }
 }

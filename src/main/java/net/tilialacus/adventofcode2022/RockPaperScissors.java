@@ -3,9 +3,7 @@ package net.tilialacus.adventofcode2022;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.function.BiFunction;
 
 public class RockPaperScissors {
 
@@ -13,34 +11,22 @@ public class RockPaperScissors {
         return shapeScore(you) + matchScore(opponent, you);
     }
 
-    public static int playAll(String resource) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
-        int lines = 0;
-        int score = 0;
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            String[] shapes = line.split(" ");
-            score += play(shapes[0], shapes[1]);
-        }
-        return score;
-    }
-
-    public static int playAllOptimal(String resource) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
-        int lines = 0;
-        int score = 0;
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            String[] shapes = line.split(" ");
-            score += playOptimal(shapes[0], shapes[1]);
-        }
-        return score;
-    }
-
     public static int playOptimal(String opponent, String outcome) {
         return play(opponent, optimalMove(opponent, outcome));
     }
 
+    public static int playAll(String resource, BiFunction<String, String, Integer> strategy) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
+        int score = 0;
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            String[] shapes = line.split(" ");
+            score += strategy.apply(shapes[0], shapes[1]);
+        }
+        return score;
+    }
+
     private static String optimalMove(String opponent, String outcome) {
-        var you = switch (opponent + outcome) {
+        return switch (opponent + outcome) {
             case "AX" -> "C";
             case "BX" -> "A";
             case "CX" -> "B";
@@ -52,7 +38,6 @@ public class RockPaperScissors {
             case "CZ" -> "A";
             default -> throw new IllegalArgumentException(opponent + " " + outcome);
         };
-        return you;
     }
 
     private static int matchScore(String opponent, String you) {
