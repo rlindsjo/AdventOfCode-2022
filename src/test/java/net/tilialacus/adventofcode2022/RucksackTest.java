@@ -2,17 +2,14 @@ package net.tilialacus.adventofcode2022;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static net.tilialacus.adventofcode2022.RockPaperScissors.playAll;
 import static net.tilialacus.adventofcode2022.Rucksack.parseAll;
+import static net.tilialacus.adventofcode2022.Rucksack.parseRucksack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RucksackTest {
     @Test
     void compartments() {
-        Rucksack rucksack = Rucksack.parse("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
+        Rucksack rucksack = parseRucksack("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
 
         assertEquals("wMqvLMZHhHMvwLH", rucksack.getCompartment(0).getContent());
         assertEquals("jbvcjnnSBnvTQFn", rucksack.getCompartment(1).getContent());
@@ -20,7 +17,7 @@ class RucksackTest {
 
     @Test
     void commonContents() {
-        Rucksack rucksack = Rucksack.parse("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
+        Rucksack rucksack = parseRucksack("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
         assertEquals('v', rucksack.getCommonContent());
     }
 

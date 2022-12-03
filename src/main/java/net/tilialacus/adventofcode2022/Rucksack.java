@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 public class Rucksack {
     private List<Compartment> compartments;
@@ -14,7 +13,7 @@ public class Rucksack {
         this.compartments = compartments;
     }
 
-    public static Rucksack parse(String line) {
+    public static Rucksack parseRucksack(String line) {
         return new Rucksack(
                 List.of(
                         new Compartment(line.substring(0, line.length() / 2)),
@@ -26,7 +25,7 @@ public class Rucksack {
         BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
         var all = new ArrayList<Rucksack>();
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            all.add(parse(line));
+            all.add(parseRucksack(line));
         }
         return all;
     }
