@@ -18,4 +18,10 @@ class RucksackTest {
         Rucksack rucksack = Rucksack.parse("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
         assertEquals('v', rucksack.getCommonContent());
     }
+
+    @Test
+    void priority() {
+        assertEquals(22, Rucksack.priority('v'));
+        assertEquals(27, Rucksack.priority('A'));
+    }
 }

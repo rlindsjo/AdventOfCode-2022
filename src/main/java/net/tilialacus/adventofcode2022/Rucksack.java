@@ -17,6 +17,14 @@ public class Rucksack {
                         ));
     }
 
+    public static int priority(char itemType) {
+        if (itemType > 'Z') {
+            return itemType - 'a' + 1;
+        } else {
+            return itemType - 'A' + 27;
+        }
+    }
+
     public Compartment getCompartment(int index) {
         return compartments.get(index);
     }
