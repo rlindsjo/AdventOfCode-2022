@@ -35,4 +35,14 @@ class RucksackTest {
                 .sum();
         assertEquals(157, sum);
     }
+
+    @Test
+    void common() throws Exception {
+        char itemType = Rucksack.commonItem(
+                parseRucksack("vJrwpWtwJgWrhcsFMMfFFhFp"),
+                parseRucksack("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+                parseRucksack("PmmdzqPrVvPwwTWBwg")
+        );
+        assertEquals('r', itemType);
+    }
 }

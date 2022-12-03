@@ -38,6 +38,22 @@ public class Rucksack {
         }
     }
 
+    public static char commonItem(Rucksack ...rucksacks) {
+        outer: for (char c : rucksacks[0].getItems().toCharArray()) {
+            for (int i = 1; i < rucksacks.length; i++) {
+                if (rucksacks[i].getItems().indexOf(c) == -1) {
+                    continue outer;
+                }
+            }
+            return c;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    public String getItems() {
+        return compartments.get(0).getContent() + compartments.get(1).getContent();
+    }
+
     public Compartment getCompartment(int index) {
         return compartments.get(index);
     }
