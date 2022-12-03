@@ -21,6 +21,16 @@ public class Rucksack {
         return compartments.get(index);
     }
 
+    public char getCommonContent() {
+        String other = getCompartment(1).getContent();
+        for (char c : getCompartment(0).getContent().toCharArray()) {
+            if (other.indexOf(c) != -1) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException("No common content");
+    }
+
     public static class Compartment {
         private String content;
 

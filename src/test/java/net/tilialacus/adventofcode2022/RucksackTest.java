@@ -12,4 +12,10 @@ class RucksackTest {
         assertEquals("wMqvLMZHhHMvwLH", rucksack.getCompartment(0).getContent());
         assertEquals("jbvcjnnSBnvTQFn", rucksack.getCompartment(1).getContent());
     }
+
+    @Test
+    void commonContents() {
+        Rucksack rucksack = Rucksack.parse("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn");
+        assertEquals('v', rucksack.getCommonContent());
+    }
 }
