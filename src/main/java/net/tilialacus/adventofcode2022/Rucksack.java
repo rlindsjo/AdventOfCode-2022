@@ -1,6 +1,11 @@
 package net.tilialacus.adventofcode2022;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class Rucksack {
     private List<Compartment> compartments;
@@ -15,6 +20,15 @@ public class Rucksack {
                         new Compartment(line.substring(0, line.length() / 2)),
                         new Compartment(line.substring(line.length() / 2))
                         ));
+    }
+
+    public static List<Rucksack> parseAll(String resource) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource), StandardCharsets.UTF_8));
+        var all = new ArrayList<Rucksack>();
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            all.add(parse(line));
+        }
+        return all;
     }
 
     public static int priority(char itemType) {
