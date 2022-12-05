@@ -7,8 +7,27 @@ import java.util.stream.StreamSupport;
 import static java.util.function.Predicate.not;
 
 public class Day5 {
+
     public static void main(String[] args) {
-        Stacks stacks = Stacks.parseStacks("""
+        Stacks stacks = getStacks();
+        StreamSupport.stream(FileUtil.resourceLines("day5/stacks.txt"), false)
+                .dropWhile(not(String::isBlank))
+                .skip(1)
+                .forEach(stacks::move);
+
+        System.err.println(stacks.getTop());
+
+        stacks = getStacks();
+        StreamSupport.stream(FileUtil.resourceLines("day5/stacks.txt"), false)
+                .dropWhile(not(String::isBlank))
+                .skip(1)
+                .forEach(stacks::moveAsOne);
+
+        System.err.println(stacks.getTop());
+    }
+
+    private static Stacks getStacks() {
+        return Stacks.parseStacks("""
                 [M]                     [N] [Z]   \s
                 [F]             [R] [Z] [C] [C]   \s
                 [C]     [V]     [L] [N] [G] [V]   \s
@@ -19,11 +38,5 @@ public class Day5 {
                 [B] [N] [J] [S] [Z] [W] [F] [W] [R]
                  1   2   3   4   5   6   7   8   9\s
                 """);
-        StreamSupport.stream(FileUtil.resourceLines("day5/stacks.txt"), false)
-                .dropWhile(not(String::isBlank))
-                .skip(1)
-                .forEach(stacks::moveAsOne);
-
-        System.err.println(stacks.getTop());
     }
 }
