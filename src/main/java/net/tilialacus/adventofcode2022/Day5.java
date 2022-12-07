@@ -1,7 +1,5 @@
 package net.tilialacus.adventofcode2022;
 
-import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
 import static java.util.function.Predicate.not;
