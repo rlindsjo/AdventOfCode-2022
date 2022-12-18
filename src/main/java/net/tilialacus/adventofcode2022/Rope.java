@@ -5,37 +5,42 @@ import java.util.Set;
 
 public class Rope {
 
-    private Pos head = new Pos(0,0);
-    private Pos tail = head;
+    private Knot head;
+    private Knot tail;
 
     private final Set<Pos> visited = new HashSet();
 
     public Rope() {
-        visited.add(tail);
+        this(2);
     }
 
-    public Pos getHead() {
+    public Rope(int length) {
+        tail = new Knot(new Pos(0,0));
+        visited.add(tail.pos);
+        head = new Knot(tail);
+        while (--length >= 2) {
+            head = new Knot(head);
+        }
+    }
+
+    public Knot getHead() {
         return head;
     }
 
-    public Pos getTail() {
+    public Knot getTail() {
         return tail;
     }
 
     public void move(String action) {
         String[] parts = action.split(" ");
         for (int steps = Integer.parseInt(parts[1]); steps > 0; steps--) {
-            head = switch (parts[0]) {
+            switch (parts[0]) {
                 case "R" -> head.move(1, 0);
                 case "L" -> head.move(-1, 0);
                 case "U" -> head.move(0, -1);
                 case "D" -> head.move(0, 1);
-                default -> head;
             };
-            if (!tail.touch(head)) {
-                tail = tail.moveTowards(head);
-                visited.add(tail);
-            }
+            visited.add(tail.pos);
         }
     }
 
@@ -64,6 +69,41 @@ public class Rope {
             } else {
                 return p1;
             }
+        }
+    }
+
+    public static class Knot {
+        private Pos pos;
+        private Knot tail;
+
+        public Knot(Pos pos) {
+            this.pos = pos;
+        }
+
+        public Knot(Knot tail) {
+            this.tail = tail;
+            this.pos = tail.pos;
+        }
+
+        public void move(int dx, int dy) {
+            pos = new Pos(pos.x + dx, pos.y + dy);
+            moveTail();
+        }
+
+        private void catchup(Pos target) {
+            if (!pos.touch(target)) {
+                pos = pos.moveTowards(target);
+                moveTail();
+            }
+        }
+        private void moveTail() {
+            if (tail != null) {
+                tail.catchup(pos);
+            }
+        }
+
+        public Pos getPos() {
+            return pos;
         }
     }
 }
