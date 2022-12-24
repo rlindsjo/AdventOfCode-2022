@@ -5,6 +5,11 @@ public class Day14 {
         HollowRock hollowRock = new HollowRock();
         FileUtil.resourceLinesAsList("day14/traces.txt")
                 .forEach(hollowRock::path);
-        System.err.println(hollowRock.drop());
+        System.err.println("Grains until reaching floor " + hollowRock.dropToFloor());
+
+        hollowRock = new HollowRock();
+        FileUtil.resourceLinesAsList("day14/traces.txt")
+                .forEach(hollowRock::path);
+        System.err.println("Grains until reaching ceiling " + hollowRock.dropToFull());
     }
 }
