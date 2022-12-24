@@ -2,6 +2,7 @@ package net.tilialacus.adventofcode2022;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static net.tilialacus.adventofcode2022.Sensors.reduce;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SensorsTest {
@@ -37,22 +39,16 @@ class SensorsTest {
     @Test
     void not() {
         Sensors.Sensor sensor = Sensors.parse("Sensor at x=8, y=7: closest beacon is at x=2, y=10");
-        Set<Integer> excluded = sensor.notInRow(6);
-        assertEquals(17, excluded.size());
+        Sensors.Range range = sensor.covered(6);
+        assertEquals(0, range.start());
+        assertEquals(16, range.end());
     }
 
     @Test
-    void name() {
+    void reduced() {
         List<Sensors.Sensor> sensors = FileUtil.resourceLinesAsList("sensors_test.txt").stream()
                 .map(Sensors::parse).toList();
-        Set<Integer> excluded = sensors
-                .stream()
-                .map(it -> it.notInRow(10))
-                .reduce(new HashSet<>(), (a, b) -> { a.addAll(b); return a; });
-        Set<Integer> beacons = sensors.stream()
-                .filter(it -> it.by == 10)
-                .map(it -> it.bx)
-                .collect(Collectors.toSet());
-        assertEquals(26, excluded.size() - beacons.size());
+        int result = Sensors.covered(sensors, 10);
+        assertEquals(26, result);
     }
 }
