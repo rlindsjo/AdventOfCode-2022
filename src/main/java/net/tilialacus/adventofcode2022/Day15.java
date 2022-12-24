@@ -1,10 +1,6 @@
 package net.tilialacus.adventofcode2022;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static net.tilialacus.adventofcode2022.Sensors.getReduce;
-import static net.tilialacus.adventofcode2022.Sensors.reduce;
 
 public class Day15 {
 
@@ -14,9 +10,9 @@ public class Day15 {
         System.err.println("Excluded " + Sensors.covered(sensors,  2000000));
 
         for (int row = 0; row < 4_000_000; row ++) {
-            List<Sensors.Range> covers = Sensors.getReduce(sensors, row);
-            if (covers.size() > 1) {
-                System.err.println("Frequency " + covers.get(0).end() * 4_000_000L + row);
+            Sensors.Ranges covers = Sensors.getRanges(sensors, row);
+            if (covers.ranges.size() > 1) {
+                System.err.println("Frequency " + covers.ranges.get(0).end() * 4_000_000L + row);
             }
         }
     }

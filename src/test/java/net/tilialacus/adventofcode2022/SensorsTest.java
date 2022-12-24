@@ -37,7 +37,7 @@ class SensorsTest {
     }
 
     @Test
-    void not() {
+    void range() {
         Sensors.Sensor sensor = Sensors.parse("Sensor at x=8, y=7: closest beacon is at x=2, y=10");
         Sensors.Range range = sensor.covered(6);
         assertEquals(0, range.start());
