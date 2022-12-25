@@ -26,7 +26,7 @@ public class Pipes {
         return valves.computeIfAbsent(id, Valve::new);
     }
 
-    public Move getBest(int minutes) {
+    public Move getBest(int minutes, int movers) {
         Queue<Move> queue = new PriorityQueue<>(Comparator.comparing(Pipes.Move::score).reversed());
         Pipes.Move best = new Pipes.Move(null, minutes, 0, getValve("AA"), emptySet());
         queue.add(best);
@@ -34,16 +34,12 @@ public class Pipes {
             Pipes.Move current = queue.remove();
             if (current.score > best.score) {
                 best = current;
-                System.err.println();
             }
             if (current.minute == 0) {
                 continue;
             }
             if (!current.open.contains(current.valve)) {
                 if (current.valve.getRate() > 0) {
-                    Set<Pipes.Valve> open = new HashSet<>();
-                    open.addAll(current.open);
-                    open.add(current.valve);
                     queue.add(current.openValve());
                 }
             }
