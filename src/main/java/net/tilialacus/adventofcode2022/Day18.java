@@ -7,5 +7,6 @@ public class Day18 {
         FileUtil.resourceLinesAsList("day18/droplets.txt")
                 .forEach(droplets::parse);
         System.err.println("Total surface area " + droplets.surfaceArea());
+        System.err.println("Total surface area " + droplets.outsideSurfaceArea());
     }
 }
