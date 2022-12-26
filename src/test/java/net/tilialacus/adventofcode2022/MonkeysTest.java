@@ -13,4 +13,12 @@ class MonkeysTest {
                 .forEach(monkeys::parse);
         assertEquals(152, monkeys.getMonkey("root").getValue());
     }
+
+    @Test
+    void humanValue() {
+        Monkeys monkeys = new Monkeys();
+        FileUtil.resourceLinesAsList("monkeys_test.txt")
+                .forEach(monkeys::parse);
+        assertEquals(301, monkeys.getHumanValue());
+    }
 }

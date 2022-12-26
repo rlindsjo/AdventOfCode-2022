@@ -7,5 +7,6 @@ public class Day21 {
         FileUtil.resourceLinesAsList("day21/monkeys.txt")
                 .forEach(monkeys::parse);
         System.err.println("Monkey yells " + monkeys.getMonkey("root").getValue());
+        System.err.println("Human should yell " + monkeys.getHumanValue());
     }
 }
